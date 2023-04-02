@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture",
+  "images": [
+    {
+      "name": "explosion-00.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-00.png",
+      "folder": ""
+    },
+    {
+      "name": "explosion-01.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-01.png",
+      "folder": ""
+    },
+    {
+      "name": "explosion-02.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-02.png",
+      "folder": ""
+    },
+    {
+      "name": "explosion-03.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-03.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-00.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-00.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-01.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-01.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-02.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-02.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-03.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-03.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-04.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-04.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-05.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-05.png",
+      "folder": ""
+    },
+    {
+      "name": "orc-06.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/orc-06.png",
+      "folder": ""
+    },
+    {
+      "name": "projectile.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/projectile.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-00.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-00.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-01.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-01.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-02.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-02.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-03.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-03.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-04.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-04.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-05.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-05.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-06.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-06.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-07.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-07.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-08.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-08.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-09.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-09.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-10.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-10.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-11.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-11.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-12.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-12.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-13.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-13.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-14.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-14.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-15.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-15.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-16.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-16.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-17.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-17.png",
+      "folder": ""
+    },
+    {
+      "name": "tower-18.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/tower-18.png",
+      "folder": ""
+    }
+  ],
+  "folders": [],
+  "packOptions": {
+    "textureName": "spritesheet",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": true,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "JSON (hash)",
+    "fileName": "pack-result",
+    "savePath": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture",
+    "width": 2048,
+    "height": 2048,
+    "fixedSize": false,
+    "powerOfTwo": false,
+    "padding": 1,
+    "extrude": 0,
+    "allowRotation": false,
+    "allowTrim": true,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": true,
+    "packer": "MaxRectsPacker",
+    "packerMethod": "Smart"
+  }
+}
