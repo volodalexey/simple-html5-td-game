@@ -1,4 +1,4 @@
-import { Container, type FederatedPointerEvent, type Texture } from 'pixi.js'
+import { Container, type FederatedPointerEvent } from 'pixi.js'
 import { StatusBar } from './StatusBar'
 import { logKeydown, logKeyup, logPointerEvent } from './logger'
 import { type IScene } from './SceneManager'
@@ -19,7 +19,6 @@ export class MainScene extends Container implements IScene {
   public map!: Map
   public statusBar!: StatusBar
   public startModal!: StartModal
-  public invaderTexture!: Texture
 
   constructor (options: IShootingSceneOptions) {
     super()
@@ -43,7 +42,7 @@ export class MainScene extends Container implements IScene {
   }
 
   handleResize (options: { viewWidth: number, viewHeight: number }): void {
-    this.centerModal(options)
+    // this.centerModal(options)
   }
 
   centerModal ({ viewWidth, viewHeight }: { viewWidth: number, viewHeight: number }): void {
@@ -54,6 +53,13 @@ export class MainScene extends Container implements IScene {
     if (this.gameEnded) {
       //
     }
+    this.map.handleUpdate()
+
+    // if (hearts === 0) {
+    //   console.log('game over')
+    //   cancelAnimationFrame(animationId)
+    //   document.querySelector('#gameOver').style.display = 'flex'
+    // }
   }
 
   addEventLesteners (): void {

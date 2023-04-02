@@ -39,11 +39,41 @@ export interface IGroupLayer {
   y: number
 }
 
+export interface IPolylinePoint {
+  x: number
+  y: number
+}
+
+export interface IObject {
+  class: string
+  height: number
+  id: number
+  name: string
+  polyline: IPolylinePoint[]
+  rotation: number
+  visible: boolean
+  width: number
+  x: number
+  y: number
+}
+
+export interface IObjectGroupLayer {
+  draworder: 'topdown'
+  id: number
+  name: string
+  objects: IObject[]
+  opacity: number
+  type: 'objectgroup'
+  visible: boolean
+  x: number
+  y: number
+}
+
 export interface IMapSettings {
   compressionlevel: number
   height: number
   infinite: boolean
-  layers: Array<ITileLayer | IGroupLayer>
+  layers: Array<ITileLayer | IGroupLayer | IObjectGroupLayer>
   nextlayerid: number
   nextobjectid: number
   orientation: 'orthogonal'
