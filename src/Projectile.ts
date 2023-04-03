@@ -1,33 +1,37 @@
-import { type Texture, Sprite } from 'pixi.js'
+import { type Texture, Sprite, AnimatedSprite, Container } from 'pixi.js'
 import { type Enemy } from './Enemy'
 import { logProjectile } from './logger'
 
-export interface IProjectileOptions {
-  texture: Texture
+export interface IProjectileOptions<T> {
   target: Enemy
+  sprite: T
 }
 
-export class Projectile extends Sprite {
+export class Projectile<T extends Sprite | AnimatedSprite> extends Container {
   public elapsedFrames = 0
-  public target!: IProjectileOptions['target']
-  static options = {
-    moveSpeed: 6,
-    maxFramesAlive: 200,
-    radius: 10,
-    damage: 20
-  }
+  public target!: IProjectileOptions<T>['target']
+  public sprite!: T
+  public moveSpeed!: number
+  public maxFramesAlive!: number
+  public radius!: number
+  public damage!: number
+  public isFireball = false
 
   public velocity = {
     vx: 0,
     vy: 0
   }
 
-  constructor (options: IProjectileOptions) {
-    super(options.texture)
+  constructor (options: IProjectileOptions<T>) {
+    super()
+    this.sprite = options.sprite
+    this.sprite.anchor.set(0.5, 0.5)
     this.target = options.target
+
+    this.addChild(options.sprite)
   }
 
-  calcVelocity (): void {
+  calcVelocity (): number {
     if (!this.target.isDead()) {
       const projectilePosition = this.getGlobalPosition()
       const targetPosition = this.target.getGlobalPosition()
@@ -36,17 +40,19 @@ export class Projectile extends Sprite {
       const diffX = targetPosition.x - projectilePosition.x
 
       const angle = Math.atan2(diffY, diffX)
-      const { moveSpeed } = Projectile.options
+      const { moveSpeed } = this
 
       this.velocity.vx = Math.cos(angle) * moveSpeed
       this.velocity.vy = Math.sin(angle) * moveSpeed
+      return angle
     }
+    return 0
   }
 
   handleUpdate (): void {
     if (this.target.isDead()) {
       if (this.alpha > 0) {
-        this.alpha += 0.05
+        this.alpha -= 0.05
       }
     }
     this.elapsedFrames++
@@ -56,6 +62,50 @@ export class Projectile extends Sprite {
   }
 
   isAlive (): boolean {
-    return this.elapsedFrames <= Projectile.options.maxFramesAlive
+    return this.elapsedFrames <= this.maxFramesAlive
+  }
+}
+
+export interface IStoneOptions {
+  texture: Texture
+  target: Enemy
+}
+
+export class Stone extends Projectile<Sprite> {
+  public moveSpeed = 6
+  public maxFramesAlive = 200
+  public radius = 10
+  public damage = 20
+  public isFireball = false
+  constructor (options: IStoneOptions) {
+    const sprite = new Sprite(options.texture)
+    super({ sprite, target: options.target })
+    this.target = options.target
+  }
+}
+
+export interface IFireballOptions {
+  textures: Texture[]
+  target: Enemy
+}
+
+export class Fireball extends Projectile<AnimatedSprite> {
+  public moveSpeed = 4
+  public maxFramesAlive = 100
+  public radius = 10
+  public damage = 30
+  public isFireball = true
+  constructor (options: IFireballOptions) {
+    const sprite = new AnimatedSprite(options.textures)
+    super({ sprite, target: options.target })
+    this.target = options.target
+    this.sprite.play()
+  }
+
+  handleUpdate (): void {
+    const angle = this.calcVelocity()
+    this.sprite.rotation = angle + 1
+
+    super.handleUpdate()
   }
 }

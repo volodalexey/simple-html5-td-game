@@ -6,6 +6,7 @@ export interface IPlacementTileOptions {
   placementTexture: Texture
   buildingTextures: Texture[]
   projectileTexture: Texture
+  fireballTextures: Texture[]
   cell: number
   onClick?: (tile: PlacementTile) => void
 }
@@ -18,8 +19,9 @@ export class PlacementTile extends Container {
   public onClick!: IPlacementTileOptions['onClick']
   public buildingTextures!: IPlacementTileOptions['buildingTextures']
   public projectileTexture!: IPlacementTileOptions['projectileTexture']
+  public fireballTextures!: IPlacementTileOptions['fireballTextures']
   static options = {
-    cost: 50,
+    cost: 75,
     tileFill: 0xa3e635
   }
 
@@ -28,6 +30,7 @@ export class PlacementTile extends Container {
     this.cell = options.cell
     this.buildingTextures = options.buildingTextures
     this.projectileTexture = options.projectileTexture
+    this.fireballTextures = options.fireballTextures
     this.onClick = options.onClick
     this.setup(options)
     this.draw()
@@ -72,6 +75,7 @@ export class PlacementTile extends Container {
     const building = new Building({
       buildingTextures: this.buildingTextures,
       projectileTexture: this.projectileTexture,
+      fireballTextures: this.fireballTextures,
       cell: this.cell
     })
     building.anchor.set(0, 0.5)

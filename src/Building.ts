@@ -1,23 +1,27 @@
-import { AnimatedSprite, Container, type Texture } from 'pixi.js'
-import { Projectile } from './Projectile'
+import { AnimatedSprite, Container, type Sprite, type Texture } from 'pixi.js'
+import { Fireball, Stone, type Projectile } from './Projectile'
 import { type Enemy } from './Enemy'
 import { logBuilding } from './logger'
 
 export interface IBuildingOptions {
   buildingTextures: Texture[]
   projectileTexture: Texture
+  fireballTextures: Texture[]
   cell: number
 }
 
 export class Building extends AnimatedSprite {
   public elapsedFrames = 0
+  public elapsedShoots = 0
   public target?: Enemy
-  public projectiles = new Container<Projectile>()
+  public projectiles = new Container<Projectile<Sprite | AnimatedSprite>>()
   public projectileTexture!: IBuildingOptions['projectileTexture']
+  public fireballTextures!: IBuildingOptions['fireballTextures']
   public cell!: IBuildingOptions['cell']
   static options = {
     attackRadius: 250,
     framesHold: 3,
+    shootsAtFireball: 3,
     shootFrame: 6,
     spawnProjectileX: 60,
     spawnProjectileY: -60
@@ -27,6 +31,7 @@ export class Building extends AnimatedSprite {
     super(options.buildingTextures)
     this.cell = options.cell
     this.projectileTexture = options.projectileTexture
+    this.fireballTextures = options.fireballTextures
 
     this.addChild(this.projectiles)
   }
@@ -68,15 +73,25 @@ export class Building extends AnimatedSprite {
   }
 
   shoot (target: Enemy): void {
-    const projectile = new Projectile({
-      texture: this.projectileTexture,
-      target
-    })
-    projectile.anchor.set(0.5, 0.5)
+    let projectile
+    if (this.elapsedShoots >= Building.options.shootsAtFireball) {
+      projectile = new Fireball({
+        textures: this.fireballTextures,
+        target
+      })
+      this.elapsedShoots = 0
+    } else {
+      projectile = new Stone({
+        texture: this.projectileTexture,
+        target
+      })
+    }
+
     logBuilding(this.x, this.y)
     projectile.position.set(Building.options.spawnProjectileX, Building.options.spawnProjectileY)
     this.projectiles.addChild(projectile)
 
     projectile.calcVelocity()
+    this.elapsedShoots++
   }
 }

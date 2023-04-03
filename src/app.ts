@@ -26,6 +26,7 @@ async function run (): Promise<void> {
       orcTextures: animations.orc,
       explosionTextures: animations.explosion,
       projectileTexture: textures['projectile.png'],
+      fireballTextures: animations.fireball,
       placementTexture: animations.tower[6]
     },
     statusTextures: {

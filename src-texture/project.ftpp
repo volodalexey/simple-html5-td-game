@@ -5,6 +5,26 @@
   "savePath": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture",
   "images": [
     {
+      "name": "Fireball-00.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/Fireball-00.png",
+      "folder": ""
+    },
+    {
+      "name": "Fireball-01.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/Fireball-01.png",
+      "folder": ""
+    },
+    {
+      "name": "Fireball-02.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/Fireball-02.png",
+      "folder": ""
+    },
+    {
+      "name": "Fireball-03.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/Fireball-03.png",
+      "folder": ""
+    },
+    {
       "name": "coins.png",
       "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/coins.png",
       "folder": ""

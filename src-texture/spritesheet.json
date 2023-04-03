@@ -1,33 +1,9 @@
 {
   "frames": {
-    "coins.png": {
-      "frame": {
-        "x": 1,
-        "y": 1,
-        "w": 238,
-        "h": 237
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 5,
-        "y": 0,
-        "w": 238,
-        "h": 237
-      },
-      "sourceSize": {
-        "w": 250,
-        "h": 240
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
     "heart.png": {
       "frame": {
         "x": 1,
-        "y": 240,
+        "y": 1,
         "w": 238,
         "h": 204
       },
@@ -42,6 +18,30 @@
       "sourceSize": {
         "w": 250,
         "h": 220
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "coins.png": {
+      "frame": {
+        "x": 1,
+        "y": 207,
+        "w": 238,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 5,
+        "y": 0,
+        "w": 238,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 240
       },
       "pivot": {
         "x": 0.5,
@@ -96,7 +96,7 @@
         "y": 0.5
       }
     },
-    "tower-15.png": {
+    "tower-00.png": {
       "frame": {
         "x": 241,
         "y": 293,
@@ -120,7 +120,7 @@
         "y": 0.5
       }
     },
-    "tower-18.png": {
+    "tower-13.png": {
       "frame": {
         "x": 371,
         "y": 1,
@@ -144,34 +144,10 @@
         "y": 0.5
       }
     },
-    "tower-14.png": {
+    "tower-18.png": {
       "frame": {
         "x": 371,
         "y": 142,
-        "w": 128,
-        "h": 139
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 5,
-        "w": 128,
-        "h": 139
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 144
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "tower-13.png": {
-      "frame": {
-        "x": 371,
-        "y": 283,
         "w": 128,
         "h": 139
       },
@@ -195,7 +171,7 @@
     "tower-12.png": {
       "frame": {
         "x": 371,
-        "y": 424,
+        "y": 283,
         "w": 128,
         "h": 139
       },
@@ -217,6 +193,30 @@
       }
     },
     "tower-11.png": {
+      "frame": {
+        "x": 371,
+        "y": 424,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-10.png": {
       "frame": {
         "x": 241,
         "y": 434,
@@ -240,7 +240,7 @@
         "y": 0.5
       }
     },
-    "tower-10.png": {
+    "tower-09.png": {
       "frame": {
         "x": 1,
         "y": 446,
@@ -264,7 +264,7 @@
         "y": 0.5
       }
     },
-    "tower-09.png": {
+    "tower-17.png": {
       "frame": {
         "x": 501,
         "y": 1,
@@ -288,7 +288,7 @@
         "y": 0.5
       }
     },
-    "tower-17.png": {
+    "tower-16.png": {
       "frame": {
         "x": 501,
         "y": 142,
@@ -312,7 +312,7 @@
         "y": 0.5
       }
     },
-    "tower-16.png": {
+    "tower-04.png": {
       "frame": {
         "x": 501,
         "y": 283,
@@ -336,7 +336,7 @@
         "y": 0.5
       }
     },
-    "tower-00.png": {
+    "tower-14.png": {
       "frame": {
         "x": 501,
         "y": 424,
@@ -360,7 +360,7 @@
         "y": 0.5
       }
     },
-    "tower-04.png": {
+    "tower-01.png": {
       "frame": {
         "x": 1,
         "y": 587,
@@ -432,7 +432,7 @@
         "y": 0.5
       }
     },
-    "tower-01.png": {
+    "tower-15.png": {
       "frame": {
         "x": 391,
         "y": 565,
@@ -672,10 +672,106 @@
         "y": 0.5
       }
     },
+    "Fireball-00.png": {
+      "frame": {
+        "x": 631,
+        "y": 467,
+        "w": 52,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 8,
+        "w": 52,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-01.png": {
+      "frame": {
+        "x": 631,
+        "y": 525,
+        "w": 49,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 8,
+        "w": 49,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-02.png": {
+      "frame": {
+        "x": 618,
+        "y": 583,
+        "w": 52,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 8,
+        "w": 52,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-03.png": {
+      "frame": {
+        "x": 618,
+        "y": 641,
+        "w": 49,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 8,
+        "w": 49,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
     "explosion-01.png": {
       "frame": {
-        "x": 131,
-        "y": 525,
+        "x": 672,
+        "y": 583,
         "w": 46,
         "h": 42
       },
@@ -698,8 +794,8 @@
     },
     "explosion-00.png": {
       "frame": {
-        "x": 179,
-        "y": 525,
+        "x": 672,
+        "y": 627,
         "w": 39,
         "h": 33
       },
@@ -722,8 +818,8 @@
     },
     "projectile.png": {
       "frame": {
-        "x": 631,
-        "y": 467,
+        "x": 618,
+        "y": 699,
         "w": 32,
         "h": 26
       },

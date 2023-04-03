@@ -5,7 +5,6 @@ import { Enemy } from './Enemy'
 import { Explosion } from './Explosion'
 import { logExplosion } from './logger'
 import { Building } from './Building'
-import { Projectile } from './Projectile'
 
 export interface IMapOptions {
   mapSettings: IMapSettings
@@ -15,6 +14,7 @@ export interface IMapOptions {
     orcTextures: Texture[]
     explosionTextures: Texture[]
     projectileTexture: Texture
+    fireballTextures: Texture[]
     placementTexture: Texture
   }
   onClick: IPlacementTileOptions['onClick']
@@ -78,7 +78,8 @@ export class Map extends Container {
         mapTexture,
         placementTexture,
         towerTextures,
-        projectileTexture
+        projectileTexture,
+        fireballTextures
       },
       explosions
     } = this
@@ -100,6 +101,7 @@ export class Map extends Container {
             placementTexture,
             buildingTextures: towerTextures,
             projectileTexture,
+            fireballTextures,
             cell,
             onClick: this.onClick
           })
@@ -238,16 +240,18 @@ export class Map extends Container {
             const distance = Math.hypot(projectilePosition.x - targetPosition.x, projectilePosition.y - targetPosition.y)
 
             // this is when a projectile hits an enemy
-            if (distance < Enemy.options.radius + Projectile.options.radius && !projectile.target.isDead()) {
+            if (distance < Enemy.options.radius + projectile.radius && !projectile.target.isDead()) {
               // enemy health and enemy removal
-              projectile.target.subHealth(Projectile.options.damage)
+              projectile.target.subHealth(projectile.damage)
 
-              const explosion = new Explosion({
-                textures: this.textures.explosionTextures
-              })
-              explosion.position.set(projectilePosition.x, projectilePosition.y)
-              this.explosions.addChild(explosion)
-              logExplosion(`Added explosion ${explosion.x} ${explosion.y}`)
+              if (!projectile.isFireball) {
+                const explosion = new Explosion({
+                  textures: this.textures.explosionTextures
+                })
+                explosion.position.set(projectilePosition.x, projectilePosition.y)
+                this.explosions.addChild(explosion)
+                logExplosion(`Added explosion ${explosion.x} ${explosion.y}`)
+              }
 
               projectile.removeFromParent()
               p--
