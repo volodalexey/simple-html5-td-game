@@ -20,13 +20,17 @@ async function run (): Promise<void> {
     viewWidth: SceneManager.width,
     viewHeight: SceneManager.height,
     mapSettings: settings,
-    textures: {
+    mapTextures: {
       mapTexture: map,
       towerTextures: animations.tower,
       orcTextures: animations.orc,
       explosionTextures: animations.explosion,
       projectileTexture: textures['projectile.png'],
       placementTexture: animations.tower[6]
+    },
+    statusTextures: {
+      coinsTexture: textures['coins.png'],
+      heartTexture: textures['heart.png']
     }
   }))
 }

@@ -1,48 +1,109 @@
-import { Container, Text } from 'pixi.js'
+import { Container, Graphics, Sprite, Text, type Texture } from 'pixi.js'
+
+export interface IStatusBarOptions {
+  textures: {
+    coinsTexture: Texture
+    heartTexture: Texture
+  }
+}
 
 export class StatusBar extends Container {
   static options = {
+    inlinePadding: 10,
     padding: 20,
     textColor: 0xffffff,
-    textSize: 20
+    textSize: 24,
+    textStroke: 2,
+    coinsScale: 0.1,
+    heartScale: 0.1,
+    backgroundFill: 0x000000
   }
 
-  private _score = 0
-  public scoreText!: Text
+  private _hearts = 10
+  private _coins = 100
+  public background!: Graphics
+  public coinsIcon!: Sprite
+  public coinsText!: Text
+  public heartIcon!: Sprite
+  public heartsText!: Text
 
-  constructor () {
+  constructor (options: IStatusBarOptions) {
     super()
-    this.setup()
+    this.setup(options)
+    this.drawBackground()
   }
 
-  get score (): number {
-    return this._score
+  get coins (): number {
+    return this._coins
   }
 
-  setup (): void {
-    const { options: scoreOptions } = StatusBar
-    const scoreText = new Text(`Score: ${this._score}`, {
-      fontSize: scoreOptions.textSize,
-      fill: scoreOptions.textColor
+  get hearts (): number {
+    return this._hearts
+  }
+
+  setup ({ textures: { coinsTexture, heartTexture } }: IStatusBarOptions): void {
+    const { options: { padding, inlinePadding, coinsScale, heartScale, textSize, textColor, textStroke } } = StatusBar
+    const background = new Graphics()
+    this.addChild(background)
+    this.background = background
+
+    const coinsIcon = new Sprite(coinsTexture)
+    coinsIcon.position.set(padding, padding)
+    coinsIcon.scale.set(coinsScale)
+    this.addChild(coinsIcon)
+    this.coinsIcon = coinsIcon
+
+    const coinsText = new Text(this._coins, {
+      fontSize: textSize,
+      fill: textColor,
+      stroke: textStroke
     })
-    scoreText.position.set(scoreOptions.padding, scoreOptions.padding)
+    coinsText.position.set(coinsIcon.x + coinsIcon.width + inlinePadding, padding)
+    this.addChild(coinsText)
+    this.coinsText = coinsText
 
-    this.addChild(scoreText)
-    this.scoreText = scoreText
+    const heartIcon = new Sprite(heartTexture)
+    heartIcon.position.set(coinsText.x + coinsText.width + inlinePadding, padding)
+    heartIcon.scale.set(heartScale)
+    this.addChild(heartIcon)
+    this.heartIcon = heartIcon
+
+    const heartsText = new Text(this._hearts, {
+      fontSize: textSize,
+      fill: textColor,
+      stroke: textStroke
+    })
+    heartsText.position.set(heartIcon.x + heartIcon.width + inlinePadding, padding)
+    this.addChild(heartsText)
+    this.heartsText = heartsText
   }
 
-  addScore (score: number): void {
-    this._score += Math.round(score)
-    this.scoreText.text = `Score: ${this._score}`
+  drawBackground (): void {
+    this.background.beginFill(StatusBar.options.backgroundFill)
+    this.background.drawRect(0, 0, this.width + StatusBar.options.padding * 2, this.height + StatusBar.options.padding * 2)
+    this.background.endFill()
+    this.background.alpha = 0.5
   }
 
-  subScore (): void {
-    this._score -= 10
-    this.scoreText.text = `Score: ${this._score}`
+  addCoins (coins: number): void {
+    this._coins += Math.round(coins)
+    this.coinsText.text = this._coins
   }
 
-  clearScore (): void {
-    this._score = 0
-    this.scoreText.text = `Score: ${this._score}`
+  subCoins (coins: number): void {
+    this._coins -= coins
+    this.coinsText.text = this._coins
+  }
+
+  subHearts (hearts: number): void {
+    this._hearts -= hearts
+    this.heartsText.text = this._hearts
+  }
+
+  restart (): void {
+    this._coins = 100
+    this.coinsText.text = this._coins
+    this._hearts = 10
+    this.heartsText.text = this._hearts
   }
 }

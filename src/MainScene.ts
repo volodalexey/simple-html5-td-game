@@ -1,16 +1,18 @@
 import { Container, type FederatedPointerEvent } from 'pixi.js'
-import { StatusBar } from './StatusBar'
+import { type IStatusBarOptions, StatusBar } from './StatusBar'
 import { logKeydown, logLayout, logPointerEvent } from './logger'
 import { type IScene } from './SceneManager'
 import { StartModal } from './StartModal'
 import { type IMapOptions, Map } from './Map'
 import { type IMapSettings } from './LoaderScene'
+import { PlacementTile } from './PlacementTile'
 
 interface IShootingSceneOptions {
   viewWidth: number
   viewHeight: number
   mapSettings: IMapSettings
-  textures: IMapOptions['textures']
+  mapTextures: IMapOptions['textures']
+  statusTextures: IStatusBarOptions['textures']
 }
 
 export class MainScene extends Container implements IScene {
@@ -26,14 +28,19 @@ export class MainScene extends Container implements IScene {
     this.addEventLesteners()
   }
 
-  setup ({ mapSettings, textures, viewWidth, viewHeight }: IShootingSceneOptions): void {
+  setup ({ mapSettings, mapTextures, statusTextures, viewWidth, viewHeight }: IShootingSceneOptions): void {
     this.map = new Map({
       mapSettings,
-      textures
+      textures: mapTextures,
+      onClick: this.handleTileClick,
+      onSubHearts: this.handleSubHearts,
+      onAddCoins: this.handleAddCoins
     })
     this.addChild(this.map)
 
-    this.statusBar = new StatusBar()
+    this.statusBar = new StatusBar({
+      textures: statusTextures
+    })
     this.addChild(this.statusBar)
 
     this.startModal = new StartModal({ viewWidth, viewHeight })
@@ -44,31 +51,32 @@ export class MainScene extends Container implements IScene {
   handleResize (options: { viewWidth: number, viewHeight: number }): void {
     logLayout(`Handle Resize viewWidth=${options.viewWidth} viewHeight=${options.viewHeight}`)
     this.map.handleResize(options)
-    // this.centerModal(options)
+    this.statusBar.scale.set(this.map.scale.x, this.map.scale.y)
+    this.statusBar.position.x = options.viewWidth - this.statusBar.width
+    this.centerModal(options)
   }
 
   centerModal ({ viewWidth, viewHeight }: { viewWidth: number, viewHeight: number }): void {
-    this.startModal.position.set(viewWidth / 2 - this.startModal.boxOptions.width / 2, viewHeight / 2 - this.startModal.boxOptions.height / 2)
+    this.startModal.scale.set(this.map.scale.x, this.map.scale.y)
+    this.startModal.position.set(viewWidth / 2 - this.startModal.width / 2, viewHeight / 2 - this.startModal.height / 2)
   }
 
   handleUpdate (): void {
     if (this.gameEnded) {
-      //
+      return
     }
     this.map.handleUpdate()
 
-    // if (hearts === 0) {
-    //   console.log('game over')
-    //   cancelAnimationFrame(animationId)
-    //   document.querySelector('#gameOver').style.display = 'flex'
-    // }
+    if (this.statusBar.hearts <= 0) {
+      this.endGame()
+    }
   }
 
   addEventLesteners (): void {
-    this.map.backgroound.interactive = true
-    this.map.backgroound.on('pointerdown', this.handlePointerDown)
-    this.map.backgroound.on('pointermove', this.handlePointerMove)
-    this.map.backgroound.on('pointerup', this.handlePointerUp)
+    this.map.background.interactive = true
+    this.map.background.on('pointerdown', this.handlePointerDown)
+    this.map.background.on('pointermove', this.handlePointerMove)
+    this.map.background.on('pointerup', this.handlePointerUp)
     window.addEventListener('keydown', this.handleKeyDown)
     this.startModal.on('click', this.startGame)
   }
@@ -111,14 +119,34 @@ export class MainScene extends Container implements IScene {
 
   startGame = (): void => {
     this.startModal.visible = false
-    this.statusBar.clearScore()
+    this.statusBar.restart()
     this.map.restart()
     this.gameEnded = false
   }
 
   endGame (): void {
     this.gameEnded = true
-    this.startModal.scoreText.text = this.statusBar.score
+    this.startModal.scoreText.text = this.statusBar.coins
     this.startModal.visible = true
+    this.map.stop()
+  }
+
+  handleTileClick = (tile: PlacementTile): void => {
+    if (this.gameEnded) {
+      return
+    }
+    if (this.statusBar.coins >= PlacementTile.options.cost) {
+      this.statusBar.subCoins(PlacementTile.options.cost)
+      tile.occupie()
+      this.map.placementTiles.children.sort((a, b) => a.position.y - b.position.y)
+    }
+  }
+
+  handleSubHearts = (): void => {
+    this.statusBar.subHearts(1)
+  }
+
+  handleAddCoins = (addCoins: number): void => {
+    this.statusBar.addCoins(addCoins)
   }
 }

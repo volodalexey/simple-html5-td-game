@@ -1,6 +1,7 @@
 import { AnimatedSprite, Graphics, type Texture } from 'pixi.js'
 import { logEnemy } from './logger'
 import { type IPolylinePoint } from './LoaderScene'
+import { HealthBar } from './HealthBar'
 
 export interface IEnemyOptions {
   textures: Texture[]
@@ -15,9 +16,14 @@ export class Enemy extends AnimatedSprite {
     vy: 0
   }
 
+  public health = 100
+  public healthBar!: HealthBar
+
   static options = {
-    moveSpeed: 3,
-    animationSpeed: 0.5
+    moveSpeed: 2,
+    animationSpeed: 0.5,
+    radius: 30,
+    coinsReward: 25
   }
 
   constructor ({ textures, waypoints }: IEnemyOptions) {
@@ -25,10 +31,9 @@ export class Enemy extends AnimatedSprite {
     this.waypoints = waypoints
     this.anchor.set(0.5, 0.5)
     if (logEnemy.enabled) {
-      const texture = textures[0]
       const graphics = new Graphics()
       graphics.beginFill()
-      graphics.drawRect(-texture.width / 2, -texture.height / 2, texture.width, texture.height)
+      graphics.drawCircle(0, 0, Enemy.options.radius)
       graphics.endFill()
       graphics.alpha = 0.5
       this.addChild(graphics)
@@ -36,6 +41,10 @@ export class Enemy extends AnimatedSprite {
 
     this.animationSpeed = Enemy.options.animationSpeed
     this.play()
+
+    this.healthBar = new HealthBar()
+    this.healthBar.position.set(-this.healthBar.width / 2, -textures[0].height / 2 - this.healthBar.height)
+    this.addChild(this.healthBar)
   }
 
   handleUpdate (): void {
@@ -64,5 +73,17 @@ export class Enemy extends AnimatedSprite {
     ) {
       this.waypointIndex++
     }
+  }
+
+  subHealth (damage: number): void {
+    this.health -= damage
+    if (this.health <= 0) {
+      this.health = 0
+    }
+    this.healthBar.setHealth(this.health / 100)
+  }
+
+  isDead (): boolean {
+    return this.health <= 0
   }
 }

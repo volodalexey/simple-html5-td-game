@@ -5,6 +5,11 @@
   "savePath": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture",
   "images": [
     {
+      "name": "coins.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/coins.png",
+      "folder": ""
+    },
+    {
       "name": "explosion-00.png",
       "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-00.png",
       "folder": ""
@@ -22,6 +27,11 @@
     {
       "name": "explosion-03.png",
       "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/explosion-03.png",
+      "folder": ""
+    },
+    {
+      "name": "heart.png",
+      "path": "/mnt/mystorage/js_projects/simple-html5-td-game/src-texture/heart.png",
       "folder": ""
     },
     {

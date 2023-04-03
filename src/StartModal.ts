@@ -68,7 +68,7 @@ export class StartModal extends Container {
     this.scoreText.position.set(boxOptions.width / 2, boxOptions.height / 2 + scoreOptions.top)
     this.addChild(this.scoreText)
 
-    this.pointsText = new Text('Score', {
+    this.pointsText = new Text('You lose', {
       fontSize: pointsOptions.textSize,
       fill: pointsOptions.textColor
     })

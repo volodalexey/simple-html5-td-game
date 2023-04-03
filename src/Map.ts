@@ -1,9 +1,11 @@
 import { Container, Sprite, type Texture } from 'pixi.js'
 import { type ITileLayer, type IMapSettings, type IObjectGroupLayer } from './LoaderScene'
-import { PlacementTile } from './PlacementTile'
+import { type IPlacementTileOptions, PlacementTile } from './PlacementTile'
 import { Enemy } from './Enemy'
-import { type Explosion } from './Explosion'
+import { Explosion } from './Explosion'
 import { logExplosion } from './logger'
+import { Building } from './Building'
+import { Projectile } from './Projectile'
 
 export interface IMapOptions {
   mapSettings: IMapSettings
@@ -15,6 +17,9 @@ export interface IMapOptions {
     projectileTexture: Texture
     placementTexture: Texture
   }
+  onClick: IPlacementTileOptions['onClick']
+  onSubHearts: () => void
+  onAddCoins: (addCoins: number) => void
 }
 
 export class Map extends Container {
@@ -24,13 +29,16 @@ export class Map extends Container {
     viewportMove: 40
   }
 
-  public backgroound!: Sprite
+  public background!: Sprite
   public mapSettings!: IMapSettings
-  public placementTiles = new Container<PlacementTile>()
   public textures!: IMapOptions['textures']
-  public spawnEnemiesCount = 3
+  public onClick!: IPlacementTileOptions['onClick']
+  public onSubHearts!: IMapOptions['onSubHearts']
+  public onAddCoins!: IMapOptions['onAddCoins']
+  public placementTiles = new Container<PlacementTile>()
+  public spawnEnemiesCount = 1
   public enemies = new Container<Enemy>()
-  public explosions: Explosion[] = []
+  public explosions = new Container<Explosion>()
   public pointerXDown: number | null = null
   public pointerYDown: number | null = null
   public maxXPivot = 0
@@ -38,6 +46,9 @@ export class Map extends Container {
 
   constructor (options: IMapOptions) {
     super()
+    this.onClick = options.onClick
+    this.onSubHearts = options.onSubHearts
+    this.onAddCoins = options.onAddCoins
     this.mapSettings = options.mapSettings
     this.textures = options.textures
     this.setup()
@@ -65,12 +76,15 @@ export class Map extends Container {
       placementTiles,
       textures: {
         mapTexture,
-        placementTexture
-      }
+        placementTexture,
+        towerTextures,
+        projectileTexture
+      },
+      explosions
     } = this
 
-    this.backgroound = new Sprite(mapTexture)
-    this.addChild(this.backgroound)
+    this.background = new Sprite(mapTexture)
+    this.addChild(this.background)
 
     this.spawnEnemies()
     this.addChild(enemies)
@@ -82,7 +96,13 @@ export class Map extends Container {
       const row = placementTilesLayer.data.slice(i, i + tilesPerRow)
       row.forEach((symbol, j) => {
         if (symbol === 14) {
-          const placementTile = new PlacementTile({ texture: placementTexture })
+          const placementTile = new PlacementTile({
+            placementTexture,
+            buildingTextures: towerTextures,
+            projectileTexture,
+            cell,
+            onClick: this.onClick
+          })
           placementTile.position.set(j * cell, i / tilesPerRow * cell)
           placementTiles.addChild(placementTile)
         }
@@ -90,17 +110,30 @@ export class Map extends Container {
     }
 
     this.addChild(placementTiles)
+
+    this.addChild(explosions)
   }
 
   cleanFromAll (): void {
-    for (const placementTile of this.placementTiles.children) {
-      placementTile.removeFromParent()
+    while (this.placementTiles.children[0] != null) {
+      this.placementTiles.children[0].removeFromParent()
+    }
+    while (this.enemies.children[0] != null) {
+      this.enemies.children[0].removeFromParent()
+    }
+    while (this.explosions.children[0] != null) {
+      this.explosions.children[0].removeFromParent()
     }
   }
 
   restart (): void {
+    this.spawnEnemiesCount = 3
     this.cleanFromAll()
     this.setup()
+  }
+
+  stop (): void {
+    this.enemies.children.forEach(enemy => { enemy.stop() })
   }
 
   handleResize ({ viewWidth, viewHeight }: { viewWidth: number, viewHeight: number }): void {
@@ -151,28 +184,82 @@ export class Map extends Container {
       const enemy = this.enemies.children[i]
       enemy.handleUpdate()
 
-      if (enemy.position.x > this.backgroound.width) {
-        // hearts -= 1
-        this.enemies.children.splice(i, 1)
+      if (enemy.isDead()) {
+        enemy.removeFromParent()
+        i--
+
+        this.onAddCoins(Enemy.options.coinsReward)
+      } else if (enemy.position.x > this.background.width) {
+        this.onSubHearts()
         enemy.removeFromParent()
         i--
       }
     }
 
-    for (let i = 0; i < this.explosions.length; i++) {
-      const explosion = this.explosions[i]
+    for (let i = 0; i < this.explosions.children.length; i++) {
+      const explosion = this.explosions.children[i]
 
       if (explosion.currentFrame >= explosion.totalFrames - 1) {
-        this.explosions.splice(i, 1)
         explosion.removeFromParent()
         i--
-        logExplosion(`Removed explosion ${this.explosions.length}`)
+        logExplosion(`Removed explosion ${this.explosions.children.length}`)
+      }
+    }
+
+    for (let i = 0; i < this.placementTiles.children.length; i++) {
+      const placementTile = this.placementTiles.children[i]
+
+      if (placementTile.isOccupied()) {
+        const building = placementTile.building as Building
+        building.handleUpdate()
+        const buildingOnMap = this.toLocal(building.getGlobalPosition())
+        const buildingCenter = {
+          cx: buildingOnMap.x + Map.options.cell,
+          cy: buildingOnMap.y + Map.options.cell / 2
+        }
+        const validEnemies = this.enemies.children.filter((enemy) => {
+          const enemyOnMap = this.toLocal(enemy.getGlobalPosition())
+          const xDifference = enemyOnMap.x - buildingCenter.cx
+          const yDifference = enemyOnMap.y - buildingCenter.cy
+          const distance = Math.hypot(xDifference, yDifference)
+          return distance < Enemy.options.radius + Building.options.attackRadius
+        })
+        building.setTarget(validEnemies[0])
+
+        for (let p = 0; p < building.projectiles.children.length; p++) {
+          const projectile = building.projectiles.children[p]
+          projectile.handleUpdate()
+          if (!projectile.isAlive()) {
+            projectile.removeFromParent()
+            p--
+          } else {
+            const projectilePosition = this.toLocal(projectile.getGlobalPosition())
+            const targetPosition = this.toLocal(projectile.target.getGlobalPosition())
+            const distance = Math.hypot(projectilePosition.x - targetPosition.x, projectilePosition.y - targetPosition.y)
+
+            // this is when a projectile hits an enemy
+            if (distance < Enemy.options.radius + Projectile.options.radius && !projectile.target.isDead()) {
+              // enemy health and enemy removal
+              projectile.target.subHealth(Projectile.options.damage)
+
+              const explosion = new Explosion({
+                textures: this.textures.explosionTextures
+              })
+              explosion.position.set(projectilePosition.x, projectilePosition.y)
+              this.explosions.addChild(explosion)
+              logExplosion(`Added explosion ${explosion.x} ${explosion.y}`)
+
+              projectile.removeFromParent()
+              p--
+            }
+          }
+        }
       }
     }
 
     // tracking total amount of enemies
     if (this.enemies.children.length === 0) {
-      this.spawnEnemiesCount += 2
+      this.spawnEnemiesCount += 1
       this.spawnEnemies()
     }
   }
