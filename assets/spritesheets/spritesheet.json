@@ -1,0 +1,947 @@
+{
+  "frames": {
+    "heart.png": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 238,
+        "h": 204
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 6,
+        "y": 9,
+        "w": 238,
+        "h": 204
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 220
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "coins.png": {
+      "frame": {
+        "x": 1,
+        "y": 207,
+        "w": 238,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 5,
+        "y": 0,
+        "w": 238,
+        "h": 237
+      },
+      "sourceSize": {
+        "w": 250,
+        "h": 240
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-06.png": {
+      "frame": {
+        "x": 241,
+        "y": 1,
+        "w": 128,
+        "h": 144
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 144
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-05.png": {
+      "frame": {
+        "x": 241,
+        "y": 147,
+        "w": 128,
+        "h": 144
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 144
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-00.png": {
+      "frame": {
+        "x": 241,
+        "y": 293,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-13.png": {
+      "frame": {
+        "x": 371,
+        "y": 1,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-18.png": {
+      "frame": {
+        "x": 371,
+        "y": 142,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-12.png": {
+      "frame": {
+        "x": 371,
+        "y": 283,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-11.png": {
+      "frame": {
+        "x": 371,
+        "y": 424,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-10.png": {
+      "frame": {
+        "x": 241,
+        "y": 434,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-09.png": {
+      "frame": {
+        "x": 1,
+        "y": 446,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-17.png": {
+      "frame": {
+        "x": 501,
+        "y": 1,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-16.png": {
+      "frame": {
+        "x": 501,
+        "y": 142,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-04.png": {
+      "frame": {
+        "x": 501,
+        "y": 283,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-14.png": {
+      "frame": {
+        "x": 501,
+        "y": 424,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-01.png": {
+      "frame": {
+        "x": 1,
+        "y": 587,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-02.png": {
+      "frame": {
+        "x": 131,
+        "y": 575,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-03.png": {
+      "frame": {
+        "x": 261,
+        "y": 575,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-15.png": {
+      "frame": {
+        "x": 391,
+        "y": 565,
+        "w": 128,
+        "h": 139
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 5,
+        "w": 128,
+        "h": 139
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-00.png": {
+      "frame": {
+        "x": 131,
+        "y": 446,
+        "w": 102,
+        "h": 77
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 3,
+        "y": 2,
+        "w": 102,
+        "h": 77
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-06.png": {
+      "frame": {
+        "x": 521,
+        "y": 565,
+        "w": 95,
+        "h": 78
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 6,
+        "y": 1,
+        "w": 95,
+        "h": 78
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-01.png": {
+      "frame": {
+        "x": 521,
+        "y": 645,
+        "w": 95,
+        "h": 78
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 6,
+        "y": 1,
+        "w": 95,
+        "h": 78
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-02.png": {
+      "frame": {
+        "x": 631,
+        "y": 1,
+        "w": 88,
+        "h": 77
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 1,
+        "w": 88,
+        "h": 77
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-05.png": {
+      "frame": {
+        "x": 631,
+        "y": 80,
+        "w": 87,
+        "h": 77
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 1,
+        "w": 87,
+        "h": 77
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "explosion-03.png": {
+      "frame": {
+        "x": 631,
+        "y": 159,
+        "w": 78,
+        "h": 84
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 78,
+        "h": 84
+      },
+      "sourceSize": {
+        "w": 78,
+        "h": 84
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-03.png": {
+      "frame": {
+        "x": 631,
+        "y": 245,
+        "w": 79,
+        "h": 77
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 1,
+        "w": 79,
+        "h": 77
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "orc-04.png": {
+      "frame": {
+        "x": 631,
+        "y": 324,
+        "w": 78,
+        "h": 77
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 13,
+        "y": 1,
+        "w": 78,
+        "h": 77
+      },
+      "sourceSize": {
+        "w": 106,
+        "h": 79
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "explosion-02.png": {
+      "frame": {
+        "x": 631,
+        "y": 403,
+        "w": 68,
+        "h": 62
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 5,
+        "y": 11,
+        "w": 68,
+        "h": 62
+      },
+      "sourceSize": {
+        "w": 78,
+        "h": 84
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-00.png": {
+      "frame": {
+        "x": 631,
+        "y": 467,
+        "w": 52,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 8,
+        "w": 52,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-01.png": {
+      "frame": {
+        "x": 631,
+        "y": 525,
+        "w": 49,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 8,
+        "w": 49,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-02.png": {
+      "frame": {
+        "x": 618,
+        "y": 583,
+        "w": 52,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 8,
+        "w": 52,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Fireball-03.png": {
+      "frame": {
+        "x": 618,
+        "y": 641,
+        "w": 49,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 8,
+        "w": 49,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "explosion-01.png": {
+      "frame": {
+        "x": 672,
+        "y": 583,
+        "w": 46,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 21,
+        "w": 46,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 78,
+        "h": 84
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "explosion-00.png": {
+      "frame": {
+        "x": 672,
+        "y": 627,
+        "w": 39,
+        "h": 33
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 20,
+        "y": 26,
+        "w": 39,
+        "h": 33
+      },
+      "sourceSize": {
+        "w": 78,
+        "h": 84
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "projectile.png": {
+      "frame": {
+        "x": 618,
+        "y": 699,
+        "w": 32,
+        "h": 26
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 26
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 26
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-07.png": {
+      "frame": {
+        "x": 241,
+        "y": 1,
+        "w": 128,
+        "h": 144
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 144
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "tower-08.png": {
+      "frame": {
+        "x": 241,
+        "y": 1,
+        "w": 128,
+        "h": 144
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 144
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "animations": {
+		"tower": [
+			"tower-00.png",
+      "tower-01.png",
+      "tower-02.png",
+      "tower-03.png",
+      "tower-04.png",
+      "tower-05.png",
+      "tower-06.png",
+      "tower-07.png",
+      "tower-08.png",
+      "tower-09.png",
+      "tower-10.png",
+      "tower-11.png",
+      "tower-12.png",
+      "tower-13.png",
+      "tower-14.png",
+      "tower-15.png",
+      "tower-16.png",
+      "tower-17.png",
+      "tower-18.png"
+		],
+    "orc": [
+      "orc-00.png",
+      "orc-01.png",
+      "orc-02.png",
+      "orc-03.png",
+      "orc-04.png",
+      "orc-05.png",
+      "orc-06.png"
+    ],
+    "explosion": [
+      "explosion-00.png",
+      "explosion-01.png",
+      "explosion-02.png",
+      "explosion-03.png"
+    ],
+    "fireball": [
+      "Fireball-00.png",
+      "Fireball-01.png",
+      "Fireball-02.png",
+      "Fireball-03.png"
+    ]
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "spritesheet.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 720,
+      "h": 727
+    },
+    "scale": 1
+  }
+}
