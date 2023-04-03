@@ -1,6 +1,6 @@
 import { Container, type FederatedPointerEvent } from 'pixi.js'
 import { StatusBar } from './StatusBar'
-import { logKeydown, logKeyup, logPointerEvent } from './logger'
+import { logKeydown, logLayout, logPointerEvent } from './logger'
 import { type IScene } from './SceneManager'
 import { StartModal } from './StartModal'
 import { type IMapOptions, Map } from './Map'
@@ -42,6 +42,8 @@ export class MainScene extends Container implements IScene {
   }
 
   handleResize (options: { viewWidth: number, viewHeight: number }): void {
+    logLayout(`Handle Resize viewWidth=${options.viewWidth} viewHeight=${options.viewHeight}`)
+    this.map.handleResize(options)
     // this.centerModal(options)
   }
 
@@ -63,18 +65,18 @@ export class MainScene extends Container implements IScene {
   }
 
   addEventLesteners (): void {
-    this.interactive = true
-    this.on('pointerdown', this.handlePointerDown)
-    this.on('pointermove', this.handlePointerMove)
-    this.on('pointerup', this.handlePointerUp)
+    this.map.backgroound.interactive = true
+    this.map.backgroound.on('pointerdown', this.handlePointerDown)
+    this.map.backgroound.on('pointermove', this.handlePointerMove)
+    this.map.backgroound.on('pointerup', this.handlePointerUp)
     window.addEventListener('keydown', this.handleKeyDown)
-    window.addEventListener('keyup', this.handleKeyUp)
     this.startModal.on('click', this.startGame)
   }
 
   handleMapViewportMove (pressed: boolean | undefined, e: FederatedPointerEvent): void {
     const pointerPoint = this.map.toLocal(e.global)
     logPointerEvent(`${e.type} px=${pointerPoint.x} py=${pointerPoint.y}`)
+    this.map.handleViewportMove(pressed, pointerPoint.x, pointerPoint.y)
   }
 
   handlePointerDown = (e: FederatedPointerEvent): void => {
@@ -93,34 +95,16 @@ export class MainScene extends Container implements IScene {
     logKeydown(`${e.code} ${e.key}`)
     switch (e.code) {
       case 'KeyW': case 'ArrowUp':
-        //
+        this.map.handleViewportUpMove()
         break
       case 'KeyA': case 'ArrowLeft':
-        //
+        this.map.handleViewportLeftMove()
         break
       case 'KeyD':case 'ArrowRight':
-        //
+        this.map.handleViewportRightMove()
         break
       case 'KeyS': case 'ArrowDown':
-        //
-        break
-    }
-  }
-
-  handleKeyUp = (e: KeyboardEvent): void => {
-    logKeyup(`${e.code} ${e.key}`)
-    switch (e.code) {
-      case 'KeyW': case 'ArrowUp':
-        //
-        break
-      case 'KeyA': case 'ArrowLeft':
-        //
-        break
-      case 'KeyD':case 'ArrowRight':
-        //
-        break
-      case 'KeyS': case 'ArrowDown':
-        //
+        this.map.handleViewportDownMove()
         break
     }
   }

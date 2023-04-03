@@ -2,6 +2,8 @@ import { Container, Sprite, type Texture } from 'pixi.js'
 import { type ITileLayer, type IMapSettings, type IObjectGroupLayer } from './LoaderScene'
 import { PlacementTile } from './PlacementTile'
 import { Enemy } from './Enemy'
+import { type Explosion } from './Explosion'
+import { logExplosion } from './logger'
 
 export interface IMapOptions {
   mapSettings: IMapSettings
@@ -18,15 +20,21 @@ export interface IMapOptions {
 export class Map extends Container {
   static options = {
     tilesPerRow: 20,
-    cell: 64
+    cell: 64,
+    viewportMove: 40
   }
 
   public backgroound!: Sprite
   public mapSettings!: IMapSettings
-  public placementTiles: PlacementTile[] = []
+  public placementTiles = new Container<PlacementTile>()
   public textures!: IMapOptions['textures']
   public spawnEnemiesCount = 3
-  public enemies: Enemy[] = []
+  public enemies = new Container<Enemy>()
+  public explosions: Explosion[] = []
+  public pointerXDown: number | null = null
+  public pointerYDown: number | null = null
+  public maxXPivot = 0
+  public maxYPivot = 0
 
   constructor (options: IMapOptions) {
     super()
@@ -53,6 +61,7 @@ export class Map extends Container {
 
   setup (): void {
     const {
+      enemies,
       placementTiles,
       textures: {
         mapTexture,
@@ -64,35 +73,60 @@ export class Map extends Container {
     this.addChild(this.backgroound)
 
     this.spawnEnemies()
+    this.addChild(enemies)
 
     const { tilesPerRow, cell } = Map.options
     const placementTilesLayer = this.findTileLayer('Placement Tiles')
 
     for (let i = 0; i < placementTilesLayer.data.length; i += tilesPerRow) {
       const row = placementTilesLayer.data.slice(i, i + tilesPerRow)
-      // console.log(row)
       row.forEach((symbol, j) => {
         if (symbol === 14) {
           const placementTile = new PlacementTile({ texture: placementTexture })
           placementTile.position.set(j * cell, i / tilesPerRow * cell)
-          placementTiles.push(placementTile)
+          placementTiles.addChild(placementTile)
         }
       })
     }
 
-    placementTiles.forEach(item => this.addChild(item))
+    this.addChild(placementTiles)
   }
 
   cleanFromAll (): void {
-    for (const placementTile of this.placementTiles) {
+    for (const placementTile of this.placementTiles.children) {
       placementTile.removeFromParent()
     }
-    this.placementTiles = []
   }
 
   restart (): void {
     this.cleanFromAll()
     this.setup()
+  }
+
+  handleResize ({ viewWidth, viewHeight }: { viewWidth: number, viewHeight: number }): void {
+    this.placementTiles.visible = false
+    this.enemies.visible = false
+    const totalHeight = this.textures.mapTexture.height
+    if (viewHeight > totalHeight) {
+      this.scale.y = this.scale.x = viewHeight / this.textures.mapTexture.height
+      this.maxYPivot = 0
+    } else {
+      this.scale.y = this.scale.x = 1
+      this.height = this.textures.mapTexture.height
+    }
+    if (this.width > viewWidth) {
+      this.maxXPivot = (this.width - viewWidth) / this.scale.x
+    } else {
+      this.maxXPivot = 0
+    }
+    if (this.height > viewHeight) {
+      this.maxYPivot = (this.height - viewHeight) / this.scale.y
+    } else {
+      this.maxYPivot = 0
+    }
+    this.pivot.set(0, 0)
+    this.placementTiles.visible = true
+    this.enemies.visible = true
   }
 
   spawnEnemies (): void {
@@ -108,28 +142,93 @@ export class Map extends Container {
         textures: this.textures.orcTextures
       })
       enemy.position.set(waypoint.x - xOffset, waypoint.y)
-      this.enemies.push(enemy)
-      this.addChild(enemy)
+      this.enemies.addChild(enemy)
     }
   }
 
   handleUpdate (): void {
-    for (let i = 0; i < this.enemies.length; i++) {
-      const enemy = this.enemies[i]
+    for (let i = 0; i < this.enemies.children.length; i++) {
+      const enemy = this.enemies.children[i]
       enemy.handleUpdate()
 
       if (enemy.position.x > this.backgroound.width) {
         // hearts -= 1
-        this.enemies.splice(i, 1)
+        this.enemies.children.splice(i, 1)
         enemy.removeFromParent()
         i--
       }
     }
 
+    for (let i = 0; i < this.explosions.length; i++) {
+      const explosion = this.explosions[i]
+
+      if (explosion.currentFrame >= explosion.totalFrames - 1) {
+        this.explosions.splice(i, 1)
+        explosion.removeFromParent()
+        i--
+        logExplosion(`Removed explosion ${this.explosions.length}`)
+      }
+    }
+
     // tracking total amount of enemies
-    if (this.enemies.length === 0) {
+    if (this.enemies.children.length === 0) {
       this.spawnEnemiesCount += 2
       this.spawnEnemies()
+    }
+  }
+
+  isPointerDown (): boolean {
+    return this.pointerXDown !== null && this.pointerYDown !== null
+  }
+
+  handleViewportUpMove (): void {
+    this.pivot.y -= Map.options.viewportMove
+    this.checkViewport()
+  }
+
+  handleViewportDownMove (): void {
+    this.pivot.y += Map.options.viewportMove
+    this.checkViewport()
+  }
+
+  handleViewportLeftMove (): void {
+    this.pivot.x -= Map.options.viewportMove
+    this.checkViewport()
+  }
+
+  handleViewportRightMove (): void {
+    this.pivot.x += Map.options.viewportMove
+    this.checkViewport()
+  }
+
+  handleViewportMove (downOrUp: boolean | undefined, x: number, y: number): void {
+    if (downOrUp === true) {
+      this.pointerXDown = x
+      this.pointerYDown = y
+    } else if (downOrUp === false) {
+      this.pointerXDown = null
+      this.pointerYDown = null
+    } else if (this.isPointerDown()) {
+      const diffX = this.pointerXDown as number - x
+      const diffY = this.pointerYDown as number - y
+      this.pivot.x += diffX
+      this.pivot.y += diffY
+      this.checkViewport()
+      this.pointerXDown = x
+      this.pointerYDown = y
+    }
+  }
+
+  checkViewport (): void {
+    if (this.pivot.x < 0) {
+      this.pivot.x = 0
+    } else if (this.pivot.x > this.maxXPivot) {
+      this.pivot.x = this.maxXPivot
+    }
+    if (this.pivot.y < 0) {
+      this.pivot.y = 0
+    } else if (this.pivot.y > this.maxYPivot) {
+      this.pivot.y = this.maxYPivot
     }
   }
 }
