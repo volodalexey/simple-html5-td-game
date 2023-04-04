@@ -31,10 +31,14 @@ export class Projectile<T extends Sprite | AnimatedSprite> extends Container {
     this.addChild(options.sprite)
   }
 
-  calcVelocity (): number {
+  calcFutureTarget (predictSteps = 1): number {
     if (!this.target.isDead()) {
       const projectilePosition = this.getGlobalPosition()
       const targetPosition = this.target.getGlobalPosition()
+      for (let i = 0; i < predictSteps; i++) {
+        targetPosition.x += this.target.velocity.vx
+        targetPosition.y += this.target.velocity.vy
+      }
       logProjectile(`x=${projectilePosition.x} y=${projectilePosition.y} tX=${targetPosition.x} tY=${targetPosition.y}`)
       const diffY = targetPosition.y - projectilePosition.y
       const diffX = targetPosition.x - projectilePosition.x
@@ -72,7 +76,7 @@ export interface IStoneOptions {
 }
 
 export class Stone extends Projectile<Sprite> {
-  public moveSpeed = 6
+  public moveSpeed = 8
   public maxFramesAlive = 200
   public radius = 10
   public damage = 20
@@ -90,8 +94,8 @@ export interface IFireballOptions {
 }
 
 export class Fireball extends Projectile<AnimatedSprite> {
-  public moveSpeed = 4
-  public maxFramesAlive = 100
+  public moveSpeed = 5
+  public maxFramesAlive = 300
   public radius = 10
   public damage = 30
   public isFireball = true
@@ -103,7 +107,7 @@ export class Fireball extends Projectile<AnimatedSprite> {
   }
 
   handleUpdate (): void {
-    const angle = this.calcVelocity()
+    const angle = this.calcFutureTarget()
     this.sprite.rotation = angle + 1
 
     super.handleUpdate()

@@ -16,11 +16,12 @@ export class StatusBar extends Container {
     textStroke: 2,
     coinsScale: 0.1,
     heartScale: 0.1,
-    backgroundFill: 0x000000
+    backgroundFill: 0x000000,
+    initCoins: 125
   }
 
   private _hearts = 10
-  private _coins = 100
+  private _coins = StatusBar.options.initCoins
   public background!: Graphics
   public coinsIcon!: Sprite
   public coinsText!: Text
@@ -101,7 +102,7 @@ export class StatusBar extends Container {
   }
 
   restart (): void {
-    this._coins = 100
+    this._coins = StatusBar.options.initCoins
     this.coinsText.text = this._coins
     this._hearts = 10
     this.heartsText.text = this._hearts

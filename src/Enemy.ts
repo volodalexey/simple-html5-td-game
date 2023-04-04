@@ -6,6 +6,7 @@ import { HealthBar } from './HealthBar'
 export interface IEnemyOptions {
   textures: Texture[]
   waypoints: IPolylinePoint[]
+  moveSpeed: number
 }
 
 export class Enemy extends AnimatedSprite {
@@ -16,18 +17,20 @@ export class Enemy extends AnimatedSprite {
     vy: 0
   }
 
+  public moveSpeed = 2
+
   public health = 100
   public healthBar!: HealthBar
 
   static options = {
-    moveSpeed: 2,
     animationSpeed: 0.5,
     radius: 30,
     coinsReward: 25
   }
 
-  constructor ({ textures, waypoints }: IEnemyOptions) {
+  constructor ({ textures, waypoints, moveSpeed }: IEnemyOptions) {
     super(textures)
+    this.moveSpeed = moveSpeed
     this.waypoints = waypoints
     this.anchor.set(0.5, 0.5)
     if (logEnemy.enabled) {
@@ -57,7 +60,7 @@ export class Enemy extends AnimatedSprite {
     const xDistance = waypoint.x - this.x
     const angle = Math.atan2(yDistance, xDistance)
 
-    const { moveSpeed } = Enemy.options
+    const { moveSpeed } = this
 
     this.velocity.vx = Math.cos(angle) * moveSpeed
     this.velocity.vy = Math.sin(angle) * moveSpeed

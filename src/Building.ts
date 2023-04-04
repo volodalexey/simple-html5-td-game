@@ -91,7 +91,7 @@ export class Building extends AnimatedSprite {
     projectile.position.set(Building.options.spawnProjectileX, Building.options.spawnProjectileY)
     this.projectiles.addChild(projectile)
 
-    projectile.calcVelocity()
+    projectile.calcFutureTarget(20)
     this.elapsedShoots++
   }
 }

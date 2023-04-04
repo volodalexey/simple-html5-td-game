@@ -82,7 +82,7 @@ export class MainScene extends Container implements IScene {
   }
 
   handleMapViewportMove (pressed: boolean | undefined, e: FederatedPointerEvent): void {
-    const pointerPoint = this.map.toLocal(e.global)
+    const pointerPoint = e.global
     logPointerEvent(`${e.type} px=${pointerPoint.x} py=${pointerPoint.y}`)
     this.map.handleViewportMove(pressed, pointerPoint.x, pointerPoint.y)
   }

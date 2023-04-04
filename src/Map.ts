@@ -1,4 +1,4 @@
-import { Container, Sprite, type Texture } from 'pixi.js'
+import { type AnimatedSprite, Container, Sprite, type Texture } from 'pixi.js'
 import { type ITileLayer, type IMapSettings, type IObjectGroupLayer } from './LoaderScene'
 import { type IPlacementTileOptions, PlacementTile } from './PlacementTile'
 import { Enemy } from './Enemy'
@@ -136,6 +136,13 @@ export class Map extends Container {
 
   stop (): void {
     this.enemies.children.forEach(enemy => { enemy.stop() })
+    this.placementTiles.children.forEach(pt => {
+      pt.building?.projectiles.children.forEach(p => {
+        if (typeof (p.sprite as AnimatedSprite).stop === 'function') {
+          (p.sprite as AnimatedSprite).stop()
+        }
+      })
+    })
   }
 
   handleResize ({ viewWidth, viewHeight }: { viewWidth: number, viewHeight: number }): void {
@@ -169,12 +176,14 @@ export class Map extends Container {
 
     const waypoints = waypointsLayer.objects[0].polyline
     const waypoint = waypoints[1]
+    const spawnOffset = 300 / this.spawnEnemiesCount
 
     for (let i = 1; i < this.spawnEnemiesCount + 1; i++) {
-      const xOffset = i * 150
+      const xOffset = i * spawnOffset
       const enemy = new Enemy({
         waypoints,
-        textures: this.textures.orcTextures
+        textures: this.textures.orcTextures,
+        moveSpeed: Math.random() > 0.5 ? 2 : 3
       })
       enemy.position.set(waypoint.x - xOffset, waypoint.y)
       this.enemies.addChild(enemy)
@@ -273,22 +282,22 @@ export class Map extends Container {
   }
 
   handleViewportUpMove (): void {
-    this.pivot.y -= Map.options.viewportMove
+    this.pivot.y -= Map.options.viewportMove * this.scale.y
     this.checkViewport()
   }
 
   handleViewportDownMove (): void {
-    this.pivot.y += Map.options.viewportMove
+    this.pivot.y += Map.options.viewportMove * this.scale.y
     this.checkViewport()
   }
 
   handleViewportLeftMove (): void {
-    this.pivot.x -= Map.options.viewportMove
+    this.pivot.x -= Map.options.viewportMove * this.scale.x
     this.checkViewport()
   }
 
   handleViewportRightMove (): void {
-    this.pivot.x += Map.options.viewportMove
+    this.pivot.x += Map.options.viewportMove * this.scale.x
     this.checkViewport()
   }
 
@@ -302,11 +311,18 @@ export class Map extends Container {
     } else if (this.isPointerDown()) {
       const diffX = this.pointerXDown as number - x
       const diffY = this.pointerYDown as number - y
-      this.pivot.x += diffX
-      this.pivot.y += diffY
-      this.checkViewport()
-      this.pointerXDown = x
-      this.pointerYDown = y
+      const diffXFloor = diffX < 0 ? Math.ceil(diffX) : Math.floor(diffX)
+      const diffYFloor = diffY < 0 ? Math.ceil(diffY) : Math.floor(diffY)
+      const diffXScaled = diffXFloor * this.scale.x
+      const diffYScaled = diffYFloor * this.scale.y
+      const minDiff = 10
+      if (Math.abs(diffXScaled) > minDiff || Math.abs(diffYScaled) > minDiff) {
+        this.pivot.x += diffXScaled
+        this.pivot.y += diffYScaled
+        this.checkViewport()
+        this.pointerXDown = x
+        this.pointerYDown = y
+      }
     }
   }
 
