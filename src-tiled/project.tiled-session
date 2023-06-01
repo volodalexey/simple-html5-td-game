@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -30,8 +30,6 @@
     "map.tileWidth": 64,
     "map.width": 20,
     "openFiles": [
-        "map.tmx",
-        "tileset.tsx"
     ],
     "project": "project.tiled-project",
     "recentFiles": [

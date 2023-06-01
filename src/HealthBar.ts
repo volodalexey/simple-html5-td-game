@@ -45,12 +45,14 @@ export class HealthBar extends Container {
     borderBox.drawRect(0, 0, boxOptions.width, boxOptions.height)
     borderBox.endFill()
 
+    emptyBar.position.set(boxOptions.borderThick, boxOptions.borderThick)
     emptyBar.beginFill(boxOptions.empty)
-    emptyBar.drawRect(boxOptions.borderThick, boxOptions.borderThick, boxOptions.width - boxOptions.borderThick, boxOptions.height - 2 * boxOptions.borderThick)
+    emptyBar.drawRect(0, 0, boxOptions.width - boxOptions.borderThick * 2, boxOptions.height - 2 * boxOptions.borderThick)
     emptyBar.endFill()
 
+    fillBar.position.set(boxOptions.borderThick, boxOptions.borderThick)
     fillBar.beginFill(boxOptions.fill)
-    fillBar.drawRect(boxOptions.borderThick, boxOptions.borderThick, boxOptions.width - boxOptions.borderThick, boxOptions.height - 2 * boxOptions.borderThick)
+    fillBar.drawRect(0, 0, boxOptions.width - boxOptions.borderThick * 2, boxOptions.height - 2 * boxOptions.borderThick)
     fillBar.endFill()
   }
 

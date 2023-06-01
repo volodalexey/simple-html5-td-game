@@ -34,8 +34,6 @@ export class PlacementTile extends Container {
     this.onClick = options.onClick
     this.setup(options)
     this.draw()
-
-    this.enableEventLesteners()
   }
 
   setup ({ placementTexture }: IPlacementTileOptions): void {
@@ -54,11 +52,6 @@ export class PlacementTile extends Container {
     background.alpha = logTilePlacement.enabled ? 0.5 : 0.2
     this.addChild(background)
     this.background = background
-  }
-
-  enableEventLesteners (): void {
-    this.background.interactive = true
-    this.background.on('pointertap', this.handleClick)
   }
 
   handleClick = (): void => {

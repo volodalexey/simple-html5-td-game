@@ -41,6 +41,7 @@ export class Map extends Container {
   public explosions = new Container<Explosion>()
   public pointerXDown: number | null = null
   public pointerYDown: number | null = null
+  public mapMoved = false
   public maxXPivot = 0
   public maxYPivot = 0
 
@@ -305,9 +306,23 @@ export class Map extends Container {
     if (downOrUp === true) {
       this.pointerXDown = x
       this.pointerYDown = y
+      this.mapMoved = false
     } else if (downOrUp === false) {
       this.pointerXDown = null
       this.pointerYDown = null
+      if (!this.mapMoved) {
+        const placementTile = this.placementTiles.children.find(pt => {
+          const bounds = pt.getBounds()
+          if (bounds.left <= x && x <= bounds.right &&
+            bounds.top <= y && y <= bounds.bottom) {
+            return true
+          }
+          return false
+        })
+        if (placementTile != null) {
+          placementTile.handleClick()
+        }
+      }
     } else if (this.isPointerDown()) {
       const diffX = this.pointerXDown as number - x
       const diffY = this.pointerYDown as number - y
@@ -317,6 +332,7 @@ export class Map extends Container {
       const diffYScaled = diffYFloor * this.scale.y
       const minDiff = 10
       if (Math.abs(diffXScaled) > minDiff || Math.abs(diffYScaled) > minDiff) {
+        this.mapMoved = true
         this.pivot.x += diffXScaled
         this.pivot.y += diffYScaled
         this.checkViewport()
